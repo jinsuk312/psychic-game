@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Psychic Game!</title>
+	<meta charset="utf-8">
+	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+</head>
+<body>
+	<script type="text/javascript">
+		var alphabetLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+		var wins = 0;
+		var losses = 0;
+		var guessesLeft = 9;
+		var guessesSoFar = [];
+		var userGuess = null;
+		var letterToBeGuessed = alphabetLetters[Math.floor(Math.random() * alphabetLetters.length)];
+/* BREAK LINE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+		document.onkeyup = function(event){
+			var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+			if(guessesSoFar.indexOf(userGuess) < 0 && alphabetLetters.indexOf(userGuess) >= 0) {
+				guessesSoFar[guessesSoFar.length]=userGuess;
+				guessesLeft--;
+			}
+			if(letterToBeGuessed == userGuess){
+				wins++;
+				guessesLeft = 9;
+				guessesSoFar = [];
+				letterToBeGuessed = alphabetLetters[Math.floor(Math.random() *alphabetLetters.length)];
+			}
+			if (guessesLeft == 0) {
+			losses++;
+			guessesLeft = 9;
+			guessesSoFar = [];
+			letterToBeGuessed = alphabetLetters[Math.floor(Math.random() * alphabetLetters.length)];
+			}
+
+		$("#wins").html(wins);
+		$("#losses").html(losses);
+		$("#guessesLeft").html(guessesLeft);
+		$("#guessesSoFar").html(guessesSoFar);
+
+}
+
+	</script>
+
+	<div class="container">
+		<h1>The Psychic Game</h1>
+		<h4>Guess what letter I'm thinking of...</h4>
+		<h4>Wins: <div id="wins"></div></h4>
+		<h4>Losses: <div id="losses"></div></h4>
+		<h4>Guesses Left: <div id="guessesLeft"></div></h4>
+		<h4>Your guesses so far: <div id="guessesSoFar"></div></h4>
+	</div>
+</body>
+</html>
